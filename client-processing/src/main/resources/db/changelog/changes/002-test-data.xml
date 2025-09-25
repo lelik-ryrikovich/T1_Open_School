@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="002-insert-products" author="Timur Aslitdinov">
+        <insert tableName="products">
+            <column name="name" value="Дебетовая карта"/>
+            <column name="key" value="DC"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="DC1"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Кредитная карта"/>
+            <column name="key" value="CC"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="CC2"/>
+
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Автокредит"/>
+            <column name="key" value="AC"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="AC3"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Ипотечный кредит"/>
+            <column name="key" value="IPO"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="IPO4"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Потребительский кредит"/>
+            <column name="key" value="PC"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="PC5"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Пенсионный счет"/>
+            <column name="key" value="PENS"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="PENS6"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Накопительный счет"/>
+            <column name="key" value="NS"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="NS7"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Страхование"/>
+            <column name="key" value="INS"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="INS8"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Брокерский счет"/>
+            <column name="key" value="BS"/>
+            <column name="create_date" value="2024-01-01T10:00:00"/>
+            <column name="product_id" value="BS9"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-users" author="Timur Aslitdinov">
+        <insert tableName="users">
+            <column name="login" value="ivanov"/>
+            <column name="password" value="password123"/>
+            <column name="email" value="ivanov@example.com"/>
+        </insert>
+        <insert tableName="users">
+            <column name="login" value="petrova"/>
+            <column name="password" value="password123"/>
+            <column name="email" value="petrova@example.com"/>
+        </insert>
+        <insert tableName="users">
+            <column name="login" value="sidorov"/>
+            <column name="password" value="password123"/>
+            <column name="email" value="sidorov@example.com"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-clients" author="Timur Aslitdinov">
+        <insert tableName="clients">
+            <column name="client_id" value="770100000001"/>
+            <column name="user_id" value="1"/>
+            <column name="first_name" value="Иван"/>
+            <column name="last_name" value="Иванов"/>
+            <column name="date_of_birth" value="1990-05-15"/>
+            <column name="document_type" value="PASSPORT"/>
+            <column name="document_id" value="1234567890"/>
+        </insert>
+        <insert tableName="clients">
+            <column name="client_id" value="770100000002"/>
+            <column name="user_id" value="2"/>
+            <column name="first_name" value="Мария"/>
+            <column name="last_name" value="Петрова"/>
+            <column name="date_of_birth" value="1985-08-20"/>
+            <column name="document_type" value="PASSPORT"/>
+            <column name="document_id" value="0987654321"/>
+        </insert>
+        <insert tableName="clients">
+            <column name="client_id" value="770200000001"/>
+            <column name="user_id" value="3"/>
+            <column name="first_name" value="Алексей"/>
+            <column name="last_name" value="Сидоров"/>
+            <column name="date_of_birth" value="1992-12-10"/>
+            <column name="document_type" value="PASSPORT"/>
+            <column name="document_id" value="1122334455"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-client-products" author="Timur Aslitdinov">
+        <insert tableName="client_products">
+            <column name="client_id" value="1"/>
+            <column name="product_id" value="1"/>
+            <column name="open_date" value="2024-01-15T09:00:00"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="client_products">
+            <column name="client_id" value="1"/>
+            <column name="product_id" value="2"/>
+            <column name="open_date" value="2024-02-01T10:00:00"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="client_products">
+            <column name="client_id" value="2"/>
+            <column name="product_id" value="1"/>
+            <column name="open_date" value="2024-01-20T11:00:00"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="client_products">
+            <column name="client_id" value="3"/>
+            <column name="product_id" value="4"/>
+            <column name="open_date" value="2024-03-01T12:00:00"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

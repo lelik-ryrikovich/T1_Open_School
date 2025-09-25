@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="002-insert-product-registry" author="Timur Aslitdinov">
+        <insert tableName="product_registry">
+            <column name="client_id" value="3"/>
+            <column name="account_id" value="3"/>
+            <column name="product_id" value="4"/>
+            <column name="interest_rate" valueNumeric="7.50"/>
+            <column name="open_date" value="2024-03-01"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-payment-registry" author="Timur Aslitdinov">
+        <insert tableName="payment_registry">
+            <column name="product_registry_id" value="1"/>
+            <column name="payment_date" value="2024-04-01"/>
+            <column name="amount" valueNumeric="50000.00"/>
+            <column name="interest_rate_amount" valueNumeric="31250.00"/>
+            <column name="debt_amount" valueNumeric="18750.00"/>
+            <column name="payment_expiration_date" value="2024-04-15"/>
+        </insert>
+        <insert tableName="payment_registry">
+            <column name="product_registry_id" value="1"/>
+            <column name="payment_date" value="2024-05-01"/>
+            <column name="amount" valueNumeric="50000.00"/>
+            <column name="interest_rate_amount" valueNumeric="31000.00"/>
+            <column name="debt_amount" valueNumeric="19000.00"/>
+            <column name="payment_expiration_date" value="2024-05-15"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

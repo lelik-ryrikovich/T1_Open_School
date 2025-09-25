@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="002-insert-accounts" author="Timur Aslitdinov">
+        <insert tableName="accounts">
+            <column name="client_id" value="1"/>
+            <column name="product_id" value="1"/>
+            <column name="balance" valueNumeric="50000.00"/>
+            <column name="interest_rate" valueNumeric="0.50"/>
+            <column name="card_exist" valueBoolean="true"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="client_id" value="1"/>
+            <column name="product_id" value="2"/>
+            <column name="balance" valueNumeric="-15000.00"/>
+            <column name="interest_rate" valueNumeric="15.00"/>
+            <column name="card_exist" valueBoolean="true"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="client_id" value="2"/>
+            <column name="product_id" value="1"/>
+            <column name="balance" valueNumeric="100000.00"/>
+            <column name="interest_rate" valueNumeric="0.50"/>
+            <column name="card_exist" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-cards" author="Timur Aslitdinov">
+        <insert tableName="cards">
+            <column name="account_id" value="1"/>
+            <column name="card_id" value="1234567812345678"/>
+            <column name="payment_system" value="VISA"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="account_id" value="2"/>
+            <column name="card_id" value="8765432187654321"/>
+            <column name="payment_system" value="MASTERCARD"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="account_id" value="3"/>
+            <column name="card_id" value="5555666677778888"/>
+            <column name="payment_system" value="MIR"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-payments" author="Timur Aslitdinov">
+        <insert tableName="payments">
+            <column name="account_id" value="1"/>
+            <column name="payment_date" value="2024-01-25T10:00:00"/>
+            <column name="amount" valueNumeric="5000.00"/>
+            <column name="is_credit" valueBoolean="false"/>
+            <column name="payed_at" value="2024-01-25T10:05:00"/>
+            <column name="type" value="PHONE_BILLS"/>
+        </insert>
+        <insert tableName="payments">
+            <column name="account_id" value="1"/>
+            <column name="payment_date" value="2024-01-28T14:30:00"/>
+            <column name="amount" valueNumeric="10000.00"/>
+            <column name="is_credit" valueBoolean="true"/>
+            <column name="payed_at" value="2024-01-28T14:35:00"/>
+            <column name="type" value="LOAN_REPAYMENT"/>
+        </insert>
+        <insert tableName="payments">
+            <column name="account_id" value="2"/>
+            <column name="payment_date" value="2024-02-01T09:00:00"/>
+            <column name="amount" valueNumeric="5000.00"/>
+            <column name="is_credit" valueBoolean="false"/>
+            <column name="payed_at" value="2024-02-01T09:10:00"/>
+            <column name="type" value="GAMES"/>
+        </insert>
+        <insert tableName="payments">
+            <column name="account_id" value="3"/>
+            <column name="payment_date" value="2024-02-05T16:45:00"/>
+            <column name="amount" valueNumeric="2500.00"/>
+            <column name="is_credit" valueBoolean="false"/>
+            <column name="payed_at" value="2024-02-05T16:50:00"/>
+            <column name="type" value="INTERNET_TV_PHONE_SERVICES"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-insert-transactions" author="Timur Aslitdinov">
+        <insert tableName="transactions">
+            <column name="account_id" value="1"/>
+            <column name="card_id" value="1"/>
+            <column name="type" value="DEPOSIT"/>
+            <column name="amount" valueNumeric="50000.00"/>
+            <column name="status" value="COMPLETE"/>
+            <column name="timestamp" value="2024-01-15T09:30:00"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="account_id" value="1"/>
+            <column name="card_id" value="1"/>
+            <column name="type" value="WITHDRAW"/>
+            <column name="amount" valueNumeric="5000.00"/>
+            <column name="status" value="COMPLETE"/>
+            <column name="timestamp" value="2024-01-20T14:15:00"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

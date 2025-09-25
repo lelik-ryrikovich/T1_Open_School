@@ -1,0 +1,20 @@
+package ru.t1.account_processing.entity.enums;
+
+public enum PaymentType {
+    PHONE_BILLS,
+    HOUSING_AND_UTILITIES,
+    STATE_SERVICES,
+    LOAN_REPAYMENT,
+    INTERNET_TV_PHONE_SERVICES,
+    TRANSPORT,
+    EDUCATION,
+    ELECTRONIC_WALLETS,
+    TRAVEL,
+    NETWORK_MARKETING,
+    CHARITY,
+    SOCIAL_MEDIA,
+    GAMES,
+    INSURANCE,
+    SECURITY,
+    OTHER
+}
