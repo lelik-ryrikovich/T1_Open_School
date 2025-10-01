@@ -16,5 +16,20 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/master.xml
 
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "ru.t1.dto"
+
+credit:
+  limit: 2000000 # пример: 2 млн
+  interestRate: 22 # пример: 22%
+  monthCount: 60 # пример: 60 месяцев (5 лет)
+  amount: 100000 # пример: 100 000
+
+
 server:
   port: 8083

@@ -16,5 +16,27 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/master.xml
 
+  kafka:
+    # Адрес брокера Kafka, к которому будет подключаться Spring
+    bootstrap-servers: localhost:29092
+    admin:
+      auto-create: true
+    producer:
+      # Превращает ключ сообщения в байты
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Превращает объект Java в JSON (для Kafka)
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        #spring.json.add.type.headers: false
+        spring.json.add.type.headers: true
+
+app:
+  kafka:
+    topics:
+      client-products: client_products
+      client-credit-products: client_credit_products
+      client-cards: client_cards
+
+
 server:
   port: 8081

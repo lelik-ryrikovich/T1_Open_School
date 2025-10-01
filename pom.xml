@@ -26,7 +26,8 @@
 		<module>client-processing</module>
 		<module>account-processing</module>
 		<module>credit-processing</module>
-	</modules>
+        <module>common</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>

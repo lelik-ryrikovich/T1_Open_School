@@ -7,5 +7,9 @@
 
     <include file="changes/001-initial-schema.xml" relativeToChangelogFile="true"/>
     <include file="changes/002-test-data.xml" relativeToChangelogFile="true"/>
+    <include file="changes/003-add-month-count-to-product-registry.xml" relativeToChangelogFile="true"/>
+    <include file="changes/004-add-amount-to-product-registry.xml" relativeToChangelogFile="true"/>
+    <include file="changes/005-alter-product-registry-account-nullable.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>

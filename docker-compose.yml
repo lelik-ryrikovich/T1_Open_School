@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment:
+      # Порт, по которому Kafka будет коннектиться к Zookeeper
+      ZOOKEEPER_CLIENT_PORT: 2181
+      # Системная настройка (интервал синхронизации)
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      # Проброс порта: слева (2181) — порт твоей машины (host), справа (2181) — порт внутри контейнера.
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    # Kafka запустится только после Zookeeper
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092" # Доступ к Kafka внутри Docker-сети
+      - "29092:29092" # Доступ к Kafka снаружи (твоего хоста)
+    environment:
+      # ID брокера (если кластер, то у каждого свой)
+      KAFKA_BROKER_ID: 1
+
+      # Говорит Kafka, где искать Zookeeper
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+      # Слушатели (внутренний для контейнеров, внешний для хоста)
+      # На каких интерфейсах Kafka слушает
+      # PLAINTEXT://0.0.0.0:9092 → доступен для других контейнеров.
+      # PLAINTEXT_HOST://0.0.0.0:29092 → доступен с твоей машины.
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
+
+      # что Kafka будет «раздавать» клиентам
+      # PLAINTEXT://kafka:9092 → если сервис внутри Docker (он видит hostname kafka).
+      # PLAINTEXT_HOST://localhost:29092 → если клиент снаружи Docker (ты, Spring Boot).
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+
+      # Карта протоколов (здесь все PLAINTEXT = без шифрования).
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+
+      # Какой listener используется для общения брокеров.
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      # Фактор репликации = 1 (так как у тебя один брокер).
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    depends_on:
+      - kafka

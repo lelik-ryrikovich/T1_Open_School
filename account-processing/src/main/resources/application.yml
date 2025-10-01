@@ -16,5 +16,13 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/master.xml
 
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "ru.t1.dto"
+
 server:
   port: 8082
