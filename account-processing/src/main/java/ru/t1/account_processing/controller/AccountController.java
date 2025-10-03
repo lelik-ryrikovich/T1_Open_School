@@ -1,4 +1,3 @@
-/*
 package ru.t1.account_processing.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -10,13 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.t1.account_processing.entity.Account;
 import ru.t1.account_processing.repository.AccountRepository;
 
+/**
+ * REST-контроллер для работы с сущностью {@link Account}.
+ * Предоставляет API для получения информации о счетах клиентов.
+ */
 @RestController
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
 public class AccountController {
 
+    /** Репозиторий для доступа к данным по счетам */
     private final AccountRepository accountRepository;
 
+    /**
+     * Получение идентификатора счёта по идентификатору клиента и продукта.
+     *
+     * Ищет в БД запись {@link Account}, соответствующую указанным
+     * clientId и productId. Если счёт найден —
+     * возвращает его идентификатор, иначе возвращает HTTP 404.
+     *
+     * @param clientId  идентификатор клиента
+     * @param productId идентификатор продукта
+     * @return {@link ResponseEntity} с идентификатором счёта или 404 Not Found
+     */
     @GetMapping("/get/by-client/{clientId}/product/{productId}")
     public ResponseEntity<Long> getAccountId(
             @PathVariable("clientId") Long clientId,
@@ -31,4 +46,3 @@ public class AccountController {
     }
 }
 
-*/

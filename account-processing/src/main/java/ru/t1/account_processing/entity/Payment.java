@@ -46,4 +46,10 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentType type;
+
+    /**
+     * Флаг просрочки платежа
+     */
+    @Column(name = "is_expired")
+    private Boolean isExpired = false;
 }

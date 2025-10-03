@@ -5,8 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <include file="changes/001-initial-schema.xml" relativeToChangelogFile="true"/>
-    <include file="changes/002-test-data.xml" relativeToChangelogFile="true"/>
-    <include file="changes/003-add-is_expired-to-payments.xml" relativeToChangelogFile="true"/>
+    <changeSet id="003-add-is_expired-to-payments" author="Timur Aslitdinov">
+        <addColumn tableName="payments">
+            <column name="is_expired" type="BOOLEAN" defaultValueBoolean="false"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

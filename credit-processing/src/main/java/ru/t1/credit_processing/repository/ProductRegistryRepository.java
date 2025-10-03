@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ProductRegistryRepository extends JpaRepository<ProductRegistry, Long> {
     List<ProductRegistry> findByClientId(Long clientId);
+
+    ProductRegistry findByAccountId(Long accountId);
 }

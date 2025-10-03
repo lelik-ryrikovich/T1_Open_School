@@ -33,7 +33,7 @@ public class Account {
     @Column(nullable = false)
     private BigDecimal balance = BigDecimal.ZERO;
 
-    /** Процентная ставка по счету (например, для депозитов) */
+    /** Процентная ставка по счету*/
     @Column(name = "interest_rate")
     private BigDecimal interestRate;
 

@@ -26,3 +26,7 @@ spring:
 
 server:
   port: 8082
+
+fraud:
+  max-transactions: 5   # N – максимум транзакций
+  time-window-ms: 60000 # T – окно в миллисекундах (например, 60 сек)
