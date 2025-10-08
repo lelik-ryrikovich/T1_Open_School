@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t1.aop.LogDatasourceError;
 import ru.t1.client_processing.dto.ProductRequest;
 import ru.t1.client_processing.dto.ProductResponse;
 import ru.t1.client_processing.entity.Product;
@@ -34,6 +35,7 @@ public class ProductService {
      * @throws ProductAlreadyExistsException если продукт с таким именем уже существует
      */
     @Transactional
+    @LogDatasourceError
     public ProductResponse createProduct(ProductRequest request) {
         log.info("Creating product: {}", request.getName());
 
@@ -60,6 +62,7 @@ public class ProductService {
      * @return найденный продукт
      * @throws ProductNotFoundException если продукт не найден
      */
+    @LogDatasourceError
     public ProductResponse getProductByProductId(String productId) {
         Product product = productRepository.findByProductId(productId)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with productId: " + productId));
@@ -85,6 +88,7 @@ public class ProductService {
      * @return обновлённый продукт
      * @throws ProductNotFoundException если продукт не найден
      */
+    @LogDatasourceError
     @Transactional
     public ProductResponse updateProduct(String productId, ProductRequest request) {
         log.info("Updating product with id: {}", productId);
@@ -108,6 +112,7 @@ public class ProductService {
      * @throws ProductNotFoundException если продукт не найден
      */
     @Transactional
+    @LogDatasourceError
     public void deleteProduct(String productId) {
         log.info("Deleting product with id: {}", productId);
 

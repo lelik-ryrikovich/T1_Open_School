@@ -67,4 +67,18 @@ public class KafkaTopicsConfig {
                 .replicas(1)
                 .build();
     }
+
+    /**
+     * Топик для логов программы.
+     *
+     * @return объект топика {@link NewTopic}
+     */
+    @Bean
+    public NewTopic serviceLogsTopic() {
+        return TopicBuilder.name("service_logs")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
 }

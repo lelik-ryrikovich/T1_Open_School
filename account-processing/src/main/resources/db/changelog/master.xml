@@ -8,5 +8,6 @@
     <include file="changes/001-initial-schema.xml" relativeToChangelogFile="true"/>
     <include file="changes/002-test-data.xml" relativeToChangelogFile="true"/>
     <include file="changes/003-add-is_expired-to-payments.xml" relativeToChangelogFile="true"/>
+    <include file="changes/004-create-error-log.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

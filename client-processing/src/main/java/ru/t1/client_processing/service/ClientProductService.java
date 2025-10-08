@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t1.aop.LogDatasourceError;
 import ru.t1.client_processing.dto.ClientProductRequest;
 import ru.t1.client_processing.dto.ClientProductResponse;
 import ru.t1.client_processing.entity.Client;
@@ -68,6 +69,7 @@ public class ClientProductService {
      * @throws ClientProductAlreadyExistsException если продукт уже привязан к клиенту
      */
     @Transactional
+    @LogDatasourceError
     public ClientProductResponse addProductToClient(ClientProductRequest request) {
         log.info("Adding product {} to client {}", request.getProductId(), request.getClientId());
 
@@ -108,6 +110,7 @@ public class ClientProductService {
      * @return список продуктов клиента
      * @throws ClientNotFoundException если клиент не найден
      */
+    @LogDatasourceError
     public List<ClientProductResponse> getClientProducts(Long clientId) {
         if (!clientRepository.existsById(clientId)) {
             throw new ClientNotFoundException("Client not found with id: " + clientId);
@@ -125,6 +128,7 @@ public class ClientProductService {
      * @return информация о продукте клиента
      * @throws ClientProductNotFoundException если продукт клиента не найден
      */
+    @LogDatasourceError
     public ClientProductResponse getClientProduct(Long clientProductId) {
         ClientProduct clientProduct = clientProductRepository.findById(clientProductId)
                 .orElseThrow(() -> new ClientProductNotFoundException("Client product not found with id: " + clientProductId));
@@ -141,6 +145,7 @@ public class ClientProductService {
      * @throws ClientProductNotFoundException если продукт клиента не найден
      */
     @Transactional
+    @LogDatasourceError
     public ClientProductResponse updateClientProduct(Long clientProductId, ClientProductRequest request) {
         log.info("Updating client product with id: {}", clientProductId);
 
@@ -171,6 +176,7 @@ public class ClientProductService {
      * @throws ClientProductNotFoundException если продукт клиента не найден
      */
     @Transactional
+    @LogDatasourceError
     public void removeProductFromClient(Long clientProductId) {
         log.info("Removing client product with id: {}", clientProductId);
 

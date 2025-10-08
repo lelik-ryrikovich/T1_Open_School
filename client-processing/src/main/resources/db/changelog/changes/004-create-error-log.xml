@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="004-create-error-log" author="common">
+        <createTable tableName="error_log">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP"/>
+            <column name="method_signature" type="VARCHAR(255)"/>
+            <column name="exception_message" type="VARCHAR(2000)"/>
+            <column name="stack_trace" type="VARCHAR(8000)"/>
+            <column name="method_args" type="VARCHAR(2000)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

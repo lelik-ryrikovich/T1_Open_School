@@ -1,18 +1,22 @@
 package ru.t1.credit_processing.client;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import ru.t1.client.ProcessingHttpClient;
+
+import java.util.Map;
 
 /**
  * Клиент для взаимодействия с микросервисом account-processing (МС-2).
  * Используется для извлечения accountId по clientId и productId.
  */
 @Component
+@RequiredArgsConstructor
 public class AccountProcessingClient {
-    private final RestTemplate restTemplate = new RestTemplate();
-
     /** Базовый URL сервиса account-processing */
     private static final String BASE_URL = "http://localhost:8082/api/accounts";
+
+    private final ProcessingHttpClient httpClient;
 
     /**
      * Получение идентификатора счёта по идентификатору клиента и продукта.
@@ -22,7 +26,8 @@ public class AccountProcessingClient {
      * @return идентификатор счёта или {@code null}, если счёт не найден
      */
     public Long getAccountId(Long clientId, Long productId) {
-        String url = BASE_URL + "/get/by-client/" + clientId + "/product/" + productId;
-        return restTemplate.getForObject(url, Long.class);
+        String url = BASE_URL + "/get/by-client/{clientId}/product/{productId}";
+        Map<String, Object> params = Map.of("clientId", clientId, "productId", productId);
+        return httpClient.sendGetAccountIdRequest(url, params);
     }
 }

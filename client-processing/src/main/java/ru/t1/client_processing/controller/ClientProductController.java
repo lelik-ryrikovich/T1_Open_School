@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.aop.HttpIncomeRequestLog;
 import ru.t1.client_processing.dto.ClientProductRequest;
 import ru.t1.client_processing.dto.ClientProductResponse;
 import ru.t1.client_processing.exception.ClientNotFoundException;
@@ -32,6 +33,7 @@ public class ClientProductController {
      * @return созданный продукт клиента
      */
     @PostMapping("/create")
+    @HttpIncomeRequestLog
     public ResponseEntity<ClientProductResponse> addProductToClient(
             @Valid @RequestBody ClientProductRequest request) {
         ClientProductResponse response = clientProductService.addProductToClient(request);
@@ -45,6 +47,7 @@ public class ClientProductController {
      * @return список продуктов клиента
      */
     @GetMapping("/get-all-client-products-by-client/{clientId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<List<ClientProductResponse>> getClientProducts(
             @PathVariable("clientId") Long clientId) {
         List<ClientProductResponse> responses = clientProductService.getClientProducts(clientId);
@@ -58,6 +61,7 @@ public class ClientProductController {
      * @return продукт клиента
      */
     @GetMapping("get/{clientProductId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<ClientProductResponse> getClientProduct(
             @PathVariable("clientProductId") Long clientProductId) {
         ClientProductResponse response = clientProductService.getClientProduct(clientProductId);
@@ -72,6 +76,7 @@ public class ClientProductController {
      * @return обновлённый продукт клиента
      */
     @PutMapping("update/{clientProductId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<ClientProductResponse> updateClientProduct(
             @PathVariable("clientProductId") Long clientProductId,
             @Valid @RequestBody ClientProductRequest request) {
@@ -86,6 +91,7 @@ public class ClientProductController {
      * @return статус 204 No Content
      */
     @DeleteMapping("delete/{clientProductId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<Void> removeProductFromClient(
             @PathVariable("clientProductId") Long clientProductId) {
         clientProductService.removeProductFromClient(clientProductId);

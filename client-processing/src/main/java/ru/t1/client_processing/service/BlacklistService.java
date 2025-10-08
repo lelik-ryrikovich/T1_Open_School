@@ -2,6 +2,7 @@ package ru.t1.client_processing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.t1.aop.LogDatasourceError;
 import ru.t1.client_processing.entity.BlacklistRegistry;
 import ru.t1.client_processing.entity.enums.DocumentType;
 import ru.t1.client_processing.exception.BlacklistedClientException;
@@ -25,6 +26,7 @@ public class BlacklistService {
      * @param documentId   номер документа
      * @throws BlacklistedClientException если клиент найден в черном списке
      */
+    @LogDatasourceError
     public void checkBlacklist(DocumentType documentType, String documentId) {
         Optional<BlacklistRegistry> blacklistEntry = blacklistRegistryRepository
                 .findActiveBlacklistEntry(documentType, documentId, LocalDateTime.now());

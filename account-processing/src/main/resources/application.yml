@@ -18,11 +18,18 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:29092
+    admin:
+      auto-create: true
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "ru.t1.dto"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring.json.add.type.headers: true
 
 server:
   port: 8082
@@ -30,3 +37,9 @@ server:
 fraud:
   max-transactions: 5   # N – максимум транзакций
   time-window-ms: 60000 # T – окно в миллисекундах (например, 60 сек)
+
+app:
+  service-name: account-processing
+  kafka:
+    topics:
+      service-logs: service_logs

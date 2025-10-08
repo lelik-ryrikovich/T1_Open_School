@@ -26,17 +26,18 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       # Превращает объект Java в JSON (для Kafka)
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        #spring.json.add.type.headers: false
-        spring.json.add.type.headers: true
+    properties:
+      spring.json.add.type.headers: true
+
 
 app:
+  service-name: client-processing
   kafka:
     topics:
       client-products: client_products
       client-credit-products: client_credit_products
       client-cards: client_cards
-
+      service-logs: service_logs
 
 server:
   port: 8081

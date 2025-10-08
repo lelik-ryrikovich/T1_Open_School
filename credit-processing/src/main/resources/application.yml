@@ -18,11 +18,18 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:29092
+    admin:
+      auto-create: true
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "ru.t1.dto"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring.json.add.type.headers: true
 
 credit:
   limit: 2000000 # пример: 2 млн
@@ -30,6 +37,11 @@ credit:
   monthCount: 60 # пример: 60 месяцев (5 лет)
   amount: 100000 # пример: 100 000
 
+app:
+  service-name: credit-processing
+  kafka:
+    topics:
+      service-logs: service_logs
 
 server:
   port: 8083

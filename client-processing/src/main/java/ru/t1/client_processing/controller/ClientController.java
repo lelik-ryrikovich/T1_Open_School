@@ -5,10 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.aop.HttpIncomeRequestLog;
 import ru.t1.client_processing.dto.ClientRegistrationRequest;
 import ru.t1.client_processing.dto.ClientRegistrationResponse;
 import ru.t1.client_processing.exception.BlacklistedClientException;
 import ru.t1.client_processing.exception.ClientAlreadyExistsException;
+import ru.t1.client_processing.exception.ClientNotFoundException;
 import ru.t1.client_processing.service.ClientService;
 import ru.t1.dto.ClientInfoResponse;
 
@@ -29,6 +31,7 @@ public class ClientController {
      * @return DTO с результатом регистрации
      */
     @PostMapping("/register")
+    @HttpIncomeRequestLog
     public ResponseEntity<ClientRegistrationResponse> registerClient(
             @Valid @RequestBody ClientRegistrationRequest request) {
         ClientRegistrationResponse response = clientService.registerClient(request);
@@ -42,6 +45,7 @@ public class ClientController {
      * @return информация о клиенте
      */
     @GetMapping("get/{clientId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<ClientInfoResponse> getClientInfo(@PathVariable("clientId") Long clientId) {
         return ResponseEntity.ok(clientService.getClientInfo(clientId));
     }
@@ -54,5 +58,10 @@ public class ClientController {
     @ExceptionHandler(BlacklistedClientException.class)
     public ResponseEntity<String> handleBlacklistedClient(BlacklistedClientException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ClientNotFoundException.class)
+    public ResponseEntity<String> handleClientNotFound(ClientNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.t1.account_processing.entity.Account;
 import ru.t1.account_processing.repository.AccountRepository;
+import ru.t1.aop.HttpIncomeRequestLog;
 
 /**
  * REST-контроллер для работы с сущностью {@link Account}.
@@ -26,13 +27,14 @@ public class AccountController {
      *
      * Ищет в БД запись {@link Account}, соответствующую указанным
      * clientId и productId. Если счёт найден —
-     * возвращает его идентификатор, иначе возвращает HTTP 404.
+     * возвращает его идентификатор, иначе возвращает HTTP 404. (решил возвращать null)
      *
      * @param clientId  идентификатор клиента
      * @param productId идентификатор продукта
-     * @return {@link ResponseEntity} с идентификатором счёта или 404 Not Found
+     * @return {@link ResponseEntity} с идентификатором счёта или 404 Not Found (решил возвращать null)
      */
     @GetMapping("/get/by-client/{clientId}/product/{productId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<Long> getAccountId(
             @PathVariable("clientId") Long clientId,
             @PathVariable("productId") Long productId
@@ -41,7 +43,8 @@ public class AccountController {
         if (account != null) {
             return ResponseEntity.ok(account.getId());
         } else {
-            return ResponseEntity.notFound().build();
+            //return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(null); // возврат null вместо account, чтобы не было ошибки 404
         }
     }
 }

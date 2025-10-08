@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.aop.HttpIncomeRequestLog;
 import ru.t1.client_processing.dto.ProductRequest;
 import ru.t1.client_processing.dto.ProductResponse;
 import ru.t1.client_processing.exception.ProductAlreadyExistsException;
@@ -30,6 +31,7 @@ public class ProductController {
      * @return созданный продукт
      */
     @PostMapping("/create")
+    @HttpIncomeRequestLog
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request) {
         ProductResponse response = productService.createProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -42,6 +44,7 @@ public class ProductController {
      * @return продукт
      */
     @GetMapping("/get/{productId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<ProductResponse> getProductByProductId(@PathVariable("productId") String productId) {
         ProductResponse response = productService.getProductByProductId(productId);
         return ResponseEntity.ok(response);
@@ -53,6 +56,7 @@ public class ProductController {
      * @return список продуктов
      */
     @GetMapping("/get-all")
+    @HttpIncomeRequestLog
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         List<ProductResponse> responses = productService.getAllProducts();
         return ResponseEntity.ok(responses);
@@ -66,6 +70,7 @@ public class ProductController {
      * @return обновлённый продукт
      */
     @PutMapping("/update/{productId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<ProductResponse> updateProduct(
             @PathVariable("productId") String productId,
             @Valid @RequestBody ProductRequest request) {
@@ -80,6 +85,7 @@ public class ProductController {
      * @return статус 204 No Content
      */
     @DeleteMapping("/delete/{productId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<Void> deleteProduct(@PathVariable("productId") String productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.noContent().build();

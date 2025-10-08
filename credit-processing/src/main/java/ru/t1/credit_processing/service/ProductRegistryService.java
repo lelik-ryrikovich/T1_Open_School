@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t1.aop.LogDatasourceError;
 import ru.t1.credit_processing.client.AccountProcessingClient;
 import ru.t1.credit_processing.entity.ProductRegistry;
 import ru.t1.credit_processing.exception.ProductRegistryNotFoundException;
@@ -14,7 +15,6 @@ import ru.t1.dto.ProductRegistryInfo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 /**
  * Сервис для работы с кредитными продуктами клиента.
@@ -98,11 +98,11 @@ public class ProductRegistryService {
      * @return объект {@link ProductRegistryInfo}, содержащий данные о продукте,
      * либо null, если продукт не найден
      */
+    @LogDatasourceError
     public ProductRegistryInfo getProductRegistryInfoByAccount (Long accountId) {
         ProductRegistry productRegistry = productRegistryRepository.findByAccountId(accountId);
         if (productRegistry == null) {
-            log.warn("Product Registry с accountId {} не найден", accountId);
-            return null;
+            throw new ProductRegistryNotFoundException("Product Registry с accountId " + accountId + " не найден");
         }
 
         ProductRegistryInfo productRegistryInfo = new ProductRegistryInfo();

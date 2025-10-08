@@ -1,11 +1,11 @@
 package ru.t1.credit_processing.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.t1.aop.HttpIncomeRequestLog;
+import ru.t1.credit_processing.exception.ProductRegistryNotFoundException;
 import ru.t1.credit_processing.service.ProductRegistryService;
 import ru.t1.dto.ProductRegistryInfo;
 
@@ -32,8 +32,14 @@ public class ProductRegistryController {
      * @return HTTP-ответ со статусом 200 OK и телом {@link ProductRegistryInfo}
      */
     @GetMapping("get/by-accountId/{accountId}")
+    @HttpIncomeRequestLog
     public ResponseEntity<ProductRegistryInfo> getByAccount(@PathVariable("accountId") Long accountId) {
         return ResponseEntity.ok(productRegistryService.getProductRegistryInfoByAccount(accountId));
+    }
+
+    @ExceptionHandler(ProductRegistryNotFoundException.class)
+    public ResponseEntity<String> handleProductRegistryNotFound(ProductRegistryNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
 

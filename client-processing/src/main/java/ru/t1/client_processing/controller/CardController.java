@@ -3,6 +3,7 @@ package ru.t1.client_processing.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.aop.HttpIncomeRequestLog;
 import ru.t1.client_processing.service.ClientCardService;
 import ru.t1.dto.KafkaMessageClientCard;
 
@@ -23,6 +24,7 @@ public class CardController {
      * @return сообщение об успешной отправке запроса
      */
     @PostMapping
+    @HttpIncomeRequestLog
     public ResponseEntity<String> createCard(@RequestBody KafkaMessageClientCard request) {
         clientCardService.sendCardCreateRequest(request);
         return ResponseEntity.ok("Запрос на создание карты отправлен");

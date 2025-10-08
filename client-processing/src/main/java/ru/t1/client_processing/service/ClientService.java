@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t1.aop.LogDatasourceError;
 import ru.t1.client_processing.dto.ClientRegistrationRequest;
 import ru.t1.client_processing.dto.ClientRegistrationResponse;
 import ru.t1.client_processing.entity.Client;
@@ -40,6 +41,7 @@ public class ClientService {
      * @throws ClientAlreadyExistsException если клиент с таким email или логином уже существует
      */
     @Transactional
+    @LogDatasourceError
     public ClientRegistrationResponse registerClient(ClientRegistrationRequest request) {
         log.info("Starting client registration for login: {}", request.getLogin());
 
@@ -81,6 +83,7 @@ public class ClientService {
      * @return DTO с информацией о клиенте
      * @throws ClientNotFoundException если клиент не найден
      */
+    @LogDatasourceError
     public ClientInfoResponse getClientInfo(Long clientId) {
         Client client = clientRepository.findById(clientId).
                 orElseThrow(() -> new ClientNotFoundException("Клиент с id " + clientId + " не найден"));
