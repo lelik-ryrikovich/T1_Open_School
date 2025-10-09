@@ -1,12 +1,12 @@
 package ru.t1.credit_processing.kafka;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import ru.t1.credit_processing.client.ClientProcessingClient;
+import ru.t1.credit_processing.entity.PaymentRegistry;
 import ru.t1.credit_processing.entity.ProductRegistry;
 import ru.t1.credit_processing.service.CreditHistoryService;
 import ru.t1.credit_processing.service.CreditLimitService;
@@ -34,13 +34,13 @@ public class KafkaConsumerClientCreditProductService {
     private final ProductRegistryService productRegistryService;
     private final PaymentScheduleService paymentScheduleService;
 
-    /** Сумма кредита по умолчанию (берётся из application.yml/properties). */
+    /** Сумма кредита по умолчанию (берётся из application.yml). */
     @Value("${credit.amount}")
     private BigDecimal amount;
 
     /**
      * Обработчик сообщений из Kafka.
-     * Открывает ProductRegistry и строит по нему платежный график PaymentRegistry.
+     * Открывает {@link ProductRegistry} и строит по нему платежный график {@link PaymentRegistry} .
      *
      * @param message сообщение с данными о клиентском продукте
      */
@@ -85,7 +85,8 @@ public class KafkaConsumerClientCreditProductService {
             log.info("Клиент {} прошёл проверку: сумма {} в пределах лимита и просрочек нет",
                     message.getClientId(), amount);
 
-            ProductRegistry registry = productRegistryService.openProduct(message);
+            ProductRegistry registry = productRegistryService.openProduct(message.getClientId(),
+                    message.getProductId(), message.getOpenDate());
 
             /*if (registry == null) {
                 log.warn("Открытие продукта отменено — accountId не найден");
@@ -99,7 +100,6 @@ public class KafkaConsumerClientCreditProductService {
 
             log.info("Клиент {} успешно открыл кредитный продукт {} (сумма: {}), график платежей создан",
                     message.getClientId(), registry.getProductId(), registry.getAmount());
-
 
         } else {
             log.info("Операция {} пока не поддерживается", message.getOperation());

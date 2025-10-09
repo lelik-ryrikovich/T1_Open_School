@@ -13,6 +13,7 @@ import ru.t1.account_processing.repository.AccountRepository;
 import ru.t1.account_processing.repository.PaymentRepository;
 import ru.t1.account_processing.repository.TransactionRepository;
 import ru.t1.aop.LogDatasourceError;
+import ru.t1.aop.Metric;
 import ru.t1.dto.ProductRegistryInfo;
 
 import java.math.BigDecimal;
@@ -56,6 +57,7 @@ public class TransactionService {
      * @param amount сумма транзакции
      */
     @LogDatasourceError
+    @Metric
     public void processTransaction(Long accountId, Long cardId, String type, BigDecimal amount) {
         log.info("Обработка транзакции: accountId={}, cardId={}, type={}, amount={}",
                 accountId, cardId, type, amount);

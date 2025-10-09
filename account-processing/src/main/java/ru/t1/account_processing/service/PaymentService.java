@@ -10,6 +10,7 @@ import ru.t1.account_processing.exception.AccountNotFoundException;
 import ru.t1.account_processing.repository.AccountRepository;
 import ru.t1.account_processing.repository.PaymentRepository;
 import ru.t1.aop.LogDatasourceError;
+import ru.t1.aop.Metric;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -45,6 +46,7 @@ public class PaymentService {
      * @throws AccountNotFoundException если счёт не найден
      */
     @LogDatasourceError
+    @Metric
     public void processPayment(Long accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new AccountNotFoundException("Счёт не найден: " + accountId));

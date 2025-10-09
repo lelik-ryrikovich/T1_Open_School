@@ -39,5 +39,11 @@ app:
       client-cards: client_cards
       service-logs: service_logs
 
+metric:
+  execution-limit-ms: 1000
+
+cache:
+  ttl-ms: 60000
+
 server:
   port: 8081

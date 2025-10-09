@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.aop.Cached;
 import ru.t1.aop.HttpIncomeRequestLog;
 import ru.t1.client_processing.dto.ClientProductRequest;
 import ru.t1.client_processing.dto.ClientProductResponse;

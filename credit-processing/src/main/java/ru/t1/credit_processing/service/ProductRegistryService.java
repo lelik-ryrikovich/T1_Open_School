@@ -10,15 +10,14 @@ import ru.t1.credit_processing.client.AccountProcessingClient;
 import ru.t1.credit_processing.entity.ProductRegistry;
 import ru.t1.credit_processing.exception.ProductRegistryNotFoundException;
 import ru.t1.credit_processing.repository.ProductRegistryRepository;
-import ru.t1.dto.KafkaMessageClientProduct;
 import ru.t1.dto.ProductRegistryInfo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Сервис для работы с кредитными продуктами клиента.
- * Отвечает за открытие нового продукта и сохранение его в БД.
  */
 @Service
 @RequiredArgsConstructor
@@ -40,13 +39,26 @@ public class ProductRegistryService {
     private BigDecimal amount;
 
     /**
-     * Открытие нового кредитного продукта для клиента.
+     * Открывает новый кредитный продукт {@link ProductRegistry} для клиента.
      *
-     * @param message сообщение из Kafka о создании кредитного продукта
-     * @return сохранённый {@link ProductRegistry}
+     * Метод выполняет следующие шаги:
+     * <ul>
+     *     <li>пытается получить accountId клиента из account-processing;</li>
+     *     <li>создаёт новую запись {@link ProductRegistry};</li>
+     *     <li>сохраняет её в базе данных;</li>
+     *     <li>возвращает сохранённую сущность.</li>
+     * </ul>
+     *
+     * Если accountId не найден, он будет сохранён как {@code null},
+     * при этом запись всё равно создаётся.
+     *
+     * @param clientId идентификатор клиента
+     * @param productId идентификатор кредитного продукта
+     * @param openDate дата открытия продукта
+     * @return сохранённый объект {@link ProductRegistry}
      */
     @Transactional
-    public ProductRegistry openProduct(KafkaMessageClientProduct message) {
+    public ProductRegistry openProduct(Long clientId, Long productId, LocalDateTime openDate) {
 
         // Тут важно, чтобы accountId принадлежал clientId
         //Тут можно найти AccountId по совпадению clientId и productId
@@ -65,17 +77,17 @@ public class ProductRegistryService {
         registry.setAccountId(accountId); */
 
         // Все же я решил пытаться доставать accountId, но даже если это не получится, то он будет просто null
-        Long accountId = accountProcessingClient.getAccountId(message.getClientId(), message.getProductId());
+        Long accountId = accountProcessingClient.getAccountId(clientId, productId);
         if (accountId == null) {
             log.warn("Не найден accountId для clientId={} и productId={}. Будем считать его за null.",
-                    message.getClientId(), message.getProductId());
+                    clientId, productId);
         }
         registry.setAccountId(accountId);
 
-        registry.setClientId(message.getClientId());
-        registry.setProductId(message.getProductId());
+        registry.setClientId(clientId);
+        registry.setProductId(productId);
         registry.setAmount(amount);
-        registry.setOpenDate(LocalDate.from(message.getOpenDate()));
+        registry.setOpenDate(LocalDate.from(openDate));
         registry.setInterestRate(interestRate);
         registry.setMonthCount(monthCount);
 
@@ -116,5 +128,4 @@ public class ProductRegistryService {
         productRegistryInfo.setAmount(productRegistry.getAmount());
         return productRegistryInfo;
     }
-
 }

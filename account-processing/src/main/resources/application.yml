@@ -43,3 +43,9 @@ app:
   kafka:
     topics:
       service-logs: service_logs
+
+metric:
+  execution-limit-ms: 10000
+
+cache:
+  ttl-ms: 60000
