@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.t1.account_processing.entity.Account;
 import ru.t1.account_processing.repository.AccountRepository;
-import ru.t1.aop.HttpIncomeRequestLog;
+import ru.t1.starter.aop.annotation.HttpIncomeRequestLog;
 
 /**
  * REST-контроллер для работы с сущностью {@link Account}.

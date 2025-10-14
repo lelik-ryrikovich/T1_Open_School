@@ -1,3 +1,4 @@
+/*
 package ru.t1.aop;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * AOP-аспект для логирования входящих HTTP-запросов.
  *
@@ -38,27 +40,37 @@ import java.util.Map;
  *     <li>тело запроса.</li>
  * </ul>
  * </p>
- */
+ *//*
+
 @Slf4j
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class HttpIncomeRequestLogAspect {
-    /** Kafka-шаблон для отправки сообщений о входящих запросах. */
+    */
+/** Kafka-шаблон для отправки сообщений о входящих запросах. *//*
+
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    /** Маппинг обработчиков Spring MVC для определения метода контроллера. */
+    */
+/** Маппинг обработчиков Spring MVC для определения метода контроллера. *//*
+
     private final RequestMappingHandlerMapping handlerMapping;
 
-    /** Название Kafka-топика для логов сервисов. */
+    */
+/** Название Kafka-топика для логов сервисов. *//*
+
     @Value("${app.kafka.topics.service-logs}")
     private String topic;
 
-    /** Имя текущего сервиса (используется как ключ Kafka-сообщения). */
+    */
+/** Имя текущего сервиса (используется как ключ Kafka-сообщения). *//*
+
     @Value("${app.service-name}")
     private String serviceName;
 
-    /**
+    */
+/**
      * Аспект, выполняющий логирование перед выполнением любого метода,
      * аннотированного {@link ru.t1.aop.HttpIncomeRequestLog}.
      *
@@ -66,7 +78,8 @@ public class HttpIncomeRequestLogAspect {
      * и публикует JSON-сообщение в Kafka.</p>
      *
      * @param joinPoint контекст выполняемого метода (переданный Spring AOP)
-     */
+     *//*
+
     @Before("@annotation(ru.t1.aop.HttpIncomeRequestLog)")
     public void logIncomingRequest(JoinPoint joinPoint) {
         try {
@@ -126,7 +139,8 @@ public class HttpIncomeRequestLogAspect {
         }
     }
 
-    /**
+    */
+/**
      * DTO для логирования входящих HTTP-запросов.
      *
      * @param timestamp время получения запроса
@@ -135,7 +149,8 @@ public class HttpIncomeRequestLogAspect {
      * @param httpMethod HTTP-метод (GET, POST и т.п.)
      * @param params карта параметров пути и запроса
      * @param body тело запроса
-     */
+     *//*
+
     private record HttpIncomeLogMessage(
             LocalDateTime timestamp,
             String methodSignature,
@@ -145,3 +160,4 @@ public class HttpIncomeRequestLogAspect {
             Object body
     ) {}
 }
+*/

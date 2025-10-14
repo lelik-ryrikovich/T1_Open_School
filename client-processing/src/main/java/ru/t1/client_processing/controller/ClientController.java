@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.aop.HttpIncomeRequestLog;
+import ru.t1.starter.aop.annotation.HttpIncomeRequestLog;
 import ru.t1.client_processing.dto.ClientRegistrationRequest;
 import ru.t1.client_processing.dto.ClientRegistrationResponse;
 import ru.t1.client_processing.exception.BlacklistedClientException;

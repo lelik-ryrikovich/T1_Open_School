@@ -1,3 +1,4 @@
+/*
 package ru.t1.aop;
 
 import java.lang.annotation.*;
@@ -7,3 +8,4 @@ import java.lang.annotation.*;
 @Documented
 public @interface Metric {
 }
+*/

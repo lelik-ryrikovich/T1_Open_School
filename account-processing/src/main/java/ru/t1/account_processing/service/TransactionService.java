@@ -12,8 +12,8 @@ import ru.t1.account_processing.entity.enums.*;
 import ru.t1.account_processing.repository.AccountRepository;
 import ru.t1.account_processing.repository.PaymentRepository;
 import ru.t1.account_processing.repository.TransactionRepository;
-import ru.t1.aop.LogDatasourceError;
-import ru.t1.aop.Metric;
+import ru.t1.starter.aop.annotation.LogDatasourceError;
+import ru.t1.starter.aop.annotation.Metric;
 import ru.t1.dto.ProductRegistryInfo;
 
 import java.math.BigDecimal;

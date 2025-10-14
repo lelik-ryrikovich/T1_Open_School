@@ -1,0 +1,5 @@
+ru.t1.starter.config.HttpIncomeRequestLoggingAutoConfiguration
+ru.t1.starter.config.CachedAutoConfiguration
+ru.t1.starter.config.MetricAutoConfiguration
+ru.t1.starter.config.LogDatasourceErrorAutoConfiguration
+ru.t1.starter.config.HttpOutcomeRequestLoggingAutoConfiguration

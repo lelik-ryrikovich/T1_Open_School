@@ -5,8 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.aop.Cached;
-import ru.t1.aop.HttpIncomeRequestLog;
+import ru.t1.starter.aop.annotation.HttpIncomeRequestLog;
 import ru.t1.client_processing.dto.ClientProductRequest;
 import ru.t1.client_processing.dto.ClientProductResponse;
 import ru.t1.client_processing.exception.ClientNotFoundException;
@@ -14,6 +13,7 @@ import ru.t1.client_processing.exception.ClientProductAlreadyExistsException;
 import ru.t1.client_processing.exception.ClientProductNotFoundException;
 import ru.t1.client_processing.exception.ProductNotFoundException;
 import ru.t1.client_processing.service.ClientProductService;
+import ru.t1.starter.aop.annotation.Metric;
 
 import java.util.List;
 

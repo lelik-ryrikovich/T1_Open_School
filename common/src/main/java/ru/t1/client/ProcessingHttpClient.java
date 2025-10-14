@@ -3,7 +3,7 @@ package ru.t1.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import ru.t1.aop.HttpOutcomeRequestLog;
+import ru.t1.starter.aop.annotation.HttpOutcomeRequestLog;
 import ru.t1.dto.ClientInfoResponse;
 import ru.t1.dto.ProductRegistryInfo;
 

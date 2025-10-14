@@ -3,7 +3,7 @@ package ru.t1.client_processing.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.aop.HttpIncomeRequestLog;
+import ru.t1.starter.aop.annotation.HttpIncomeRequestLog;
 import ru.t1.client_processing.service.ClientCardService;
 import ru.t1.dto.KafkaMessageClientCard;
 

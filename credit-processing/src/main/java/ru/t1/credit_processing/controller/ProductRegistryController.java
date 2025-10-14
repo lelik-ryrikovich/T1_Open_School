@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.aop.HttpIncomeRequestLog;
+import ru.t1.starter.aop.annotation.HttpIncomeRequestLog;
 import ru.t1.credit_processing.exception.ProductRegistryNotFoundException;
 import ru.t1.credit_processing.service.ProductRegistryService;
 import ru.t1.dto.ProductRegistryInfo;

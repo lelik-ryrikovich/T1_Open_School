@@ -1,3 +1,4 @@
+/*
 package ru.t1.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,3 +9,4 @@ import ru.t1.entity.ErrorLog;
 public interface ErrorLogRepository extends JpaRepository<ErrorLog, Long> {
 }
 
+*/

@@ -1,3 +1,4 @@
+/*
 package ru.t1.aop;
 
 import lombok.RequiredArgsConstructor;
@@ -56,9 +57,11 @@ public class CachedAspect {
         return result;
     }
 
-    /**
+    */
+/**
      * Генерирует информацию о ключе для кэша
-     */
+     *//*
+
     private CacheKeyInfo generateCacheKey(String cacheName, ProceedingJoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
 
@@ -77,9 +80,11 @@ public class CachedAspect {
         }
     }
 
-    /**
+    */
+/**
      * Получает значение из кэша
-     */
+     *//*
+
     private Object getFromCache(String cacheName, CacheKeyInfo keyInfo) {
         if (!cacheName.isEmpty()) {
             // Индивидуальный кэш
@@ -108,9 +113,11 @@ public class CachedAspect {
         return null;
     }
 
-    /**
+    */
+/**
      * Сохраняет значение в кэш
-     */
+     *//*
+
     private void saveToCache(String cacheName, CacheKeyInfo keyInfo, Object result, long ttl) {
         CacheEntry entry = new CacheEntry(result, Instant.now().plusMillis(ttl));
 
@@ -136,9 +143,11 @@ public class CachedAspect {
         return Arrays.hashCode(keyElements);
     }
 
-    /**
+    */
+/**
      * Проверяет, является ли результат "пустым" (не нужно кэшировать)
-     */
+     *//*
+
     private boolean isEmptyResult(Object result) {
         if (result instanceof Optional) {
             return ((Optional<?>) result).isEmpty();
@@ -149,9 +158,11 @@ public class CachedAspect {
         return false;
     }
 
-    /**
+    */
+/**
      * Вспомогательный класс для информации о ключе кэша
-     */
+     *//*
+
     private static class CacheKeyInfo {
         private final Object key;
         private final Object[] methodArgs;
@@ -175,4 +186,4 @@ public class CachedAspect {
             return Instant.now().isAfter(expiresAt);
         }
     }
-}
+}*/

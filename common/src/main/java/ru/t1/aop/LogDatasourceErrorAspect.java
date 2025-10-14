@@ -1,3 +1,4 @@
+/*
 package ru.t1.aop;
 
 import jakarta.persistence.EnumType;
@@ -20,36 +21,48 @@ import ru.t1.repository.ErrorLogRepository;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+*/
 /**
  * Аспект для перехвата ошибок, возникающих в методах,
  * помеченных аннотацией {@link LogDatasourceError}.
- */
+ *//*
+
 @Slf4j
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class LogDatasourceErrorAspect {
-    /** Kafka-шаблон для публикации сообщений об ошибках. */
+    */
+/** Kafka-шаблон для публикации сообщений об ошибках. *//*
+
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    /** Репозиторий для сохранения ошибок в случае недоступности Kafka. */
+    */
+/** Репозиторий для сохранения ошибок в случае недоступности Kafka. *//*
+
     private final ErrorLogRepository errorLogRepository;
 
-    /** Название Kafka-топика для логов сервисов. */
+    */
+/** Название Kafka-топика для логов сервисов. *//*
+
     @Value("${app.kafka.topics.service-logs}")
     private String topic;
 
-    /** Имя текущего сервиса (используется как ключ Kafka-сообщения). */
+    */
+/** Имя текущего сервиса (используется как ключ Kafka-сообщения). *//*
+
     @Value("${app.service-name}")
     private String serviceName;
 
-    /**
+    */
+/**
      * Перехватывает все исключения, выброшенные методами, аннотированными {@link LogDatasourceError},
      * и логирует их в Kafka или в базу данных при недоступности брокера.
      *
      * @param joinPoint точка соединения, содержащая информацию о методе и его аргументах
      * @param ex         перехваченное исключение
-     */
+     *//*
+
     @AfterThrowing(pointcut = "@annotation(ru.t1.aop.LogDatasourceError)", throwing = "ex")
     public void logError(JoinPoint joinPoint, Throwable ex) {
         try {
@@ -93,7 +106,8 @@ public class LogDatasourceErrorAspect {
         }
     }
 
-    /**
+    */
+/**
      * Внутренний DTO для передачи сообщений об ошибках в Kafka.
      *
      * @param timestamp       время возникновения ошибки
@@ -101,7 +115,8 @@ public class LogDatasourceErrorAspect {
      * @param exceptionMessage сообщение об исключении
      * @param stackTrace      стек-трейс исключения
      * @param methodArgs      аргументы метода, в котором произошла ошибка
-     */
+     *//*
+
     private record ErrorMessage(
             LocalDateTime timestamp,
             String methodSignature,
@@ -110,12 +125,14 @@ public class LogDatasourceErrorAspect {
             String methodArgs
     ) {}
 
-    /**
+    */
+/**
      * Определяет уровень важности (тип) ошибки на основе типа исключения.
      *
      * @param ex исключение, тип которого нужно определить
      * @return тип логирования {@link LogType}
-     */
+     *//*
+
     @Enumerated(EnumType.STRING)
     private LogType determineMessageType(Throwable ex) {
         if (ex instanceof NullPointerException ||
@@ -128,3 +145,4 @@ public class LogDatasourceErrorAspect {
         }
     }
 }
+*/

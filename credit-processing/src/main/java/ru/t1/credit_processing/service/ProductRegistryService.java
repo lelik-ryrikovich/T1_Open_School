@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.t1.aop.LogDatasourceError;
+import ru.t1.starter.aop.annotation.LogDatasourceError;
 import ru.t1.credit_processing.client.AccountProcessingClient;
 import ru.t1.credit_processing.entity.ProductRegistry;
 import ru.t1.credit_processing.exception.ProductRegistryNotFoundException;

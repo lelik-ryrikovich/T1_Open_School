@@ -11,15 +11,8 @@ import ru.t1.config.KafkaTopicsConfig;
 @SpringBootApplication(scanBasePackages = "ru.t1")
 @Import(KafkaTopicsConfig.class)
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableJpaRepositories(basePackages = {
-        "ru.t1.repository",
-        "ru.t1.credit_processing.repository"
-})
-@EntityScan(basePackages = {
-        "ru.t1.entity",
-        "ru.t1.credit_processing.entity"
-})
-
+@EnableJpaRepositories(basePackages = "ru.t1.credit_processing.repository")
+@EntityScan(basePackages = "ru.t1.credit_processing.entity")
 public class CreditProcessingApp {
     public static void main(String[] args) {
         SpringApplication.run(CreditProcessingApp.class, args);

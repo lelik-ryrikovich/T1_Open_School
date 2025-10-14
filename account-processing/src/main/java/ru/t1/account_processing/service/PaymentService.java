@@ -9,8 +9,8 @@ import ru.t1.account_processing.entity.enums.PaymentType;
 import ru.t1.account_processing.exception.AccountNotFoundException;
 import ru.t1.account_processing.repository.AccountRepository;
 import ru.t1.account_processing.repository.PaymentRepository;
-import ru.t1.aop.LogDatasourceError;
-import ru.t1.aop.Metric;
+import ru.t1.starter.aop.annotation.LogDatasourceError;
+import ru.t1.starter.aop.annotation.Metric;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

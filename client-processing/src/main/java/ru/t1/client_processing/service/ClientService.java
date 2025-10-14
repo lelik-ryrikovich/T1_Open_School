@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.t1.aop.LogDatasourceError;
+import ru.t1.starter.aop.annotation.LogDatasourceError;
 import ru.t1.client_processing.dto.ClientRegistrationRequest;
 import ru.t1.client_processing.dto.ClientRegistrationResponse;
 import ru.t1.client_processing.entity.Client;
@@ -16,8 +16,6 @@ import ru.t1.client_processing.repository.ClientRepository;
 import ru.t1.client_processing.repository.UserRepository;
 import ru.t1.client_processing.util.ClientIdGenerator;
 import ru.t1.dto.ClientInfoResponse;
-
-import java.util.Optional;
 
 /**
  * Сервис для управления клиентами.

@@ -163,10 +163,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.t1.aop.Cached;
-import ru.t1.aop.LogDatasourceError;
+import ru.t1.starter.aop.annotation.Cached;
+import ru.t1.starter.aop.annotation.LogDatasourceError;
 import ru.t1.client_processing.dto.ProductRequest;
-import ru.t1.client_processing.dto.ProductResponse;
 import ru.t1.client_processing.entity.Product;
 import ru.t1.client_processing.exception.ProductAlreadyExistsException;
 import ru.t1.client_processing.exception.ProductNotFoundException;
@@ -175,7 +174,6 @@ import ru.t1.client_processing.repository.ProductRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Сервис для управления продуктами.

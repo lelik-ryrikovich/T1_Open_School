@@ -13,7 +13,7 @@ import ru.t1.account_processing.exception.AccountNotExistForClientException;
 import ru.t1.account_processing.exception.AccountNotFoundException;
 import ru.t1.account_processing.repository.AccountRepository;
 import ru.t1.account_processing.repository.CardRepository;
-import ru.t1.aop.LogDatasourceError;
+import ru.t1.starter.aop.annotation.LogDatasourceError;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;

@@ -40,7 +40,7 @@ app:
       service-logs: service_logs
 
 metric:
-  execution-limit-ms: 1000
+  execution-limit-ms: 100
 
 cache:
   ttl-ms: 60000
