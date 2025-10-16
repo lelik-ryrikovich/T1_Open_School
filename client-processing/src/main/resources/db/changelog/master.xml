@@ -9,5 +9,6 @@
     <include file="changes/002-test-data.xml" relativeToChangelogFile="true"/>
     <include file="changes/003-create-blacklist-registry-table.xml" relativeToChangelogFile="true"/>
     <include file="changes/004-create-error-log.xml" relativeToChangelogFile="true"/>
+    <include file="changes/005-add-roles-system.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

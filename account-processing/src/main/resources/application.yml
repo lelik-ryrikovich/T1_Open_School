@@ -49,3 +49,7 @@ metric:
 
 cache:
   ttl-ms: 60000
+
+jwt:
+  secret: "bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbkluTWljcm9zZXJ2aWNlczEyMyE="
+  expiration-ms: 3600000

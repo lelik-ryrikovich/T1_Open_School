@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="005-create-roles-table" author="Timur Aslitdinov">
+        <!-- Создаем таблицу ролей -->
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <!-- Создаем таблицу связи пользователей и ролей -->
+        <createTable tableName="user_roles">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_user" references="users(id)"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_role" references="roles(id)"/>
+            </column>
+        </createTable>
+
+        <!-- Добавляем первичный ключ для таблицы связи -->
+        <addPrimaryKey
+                tableName="user_roles"
+                columnNames="user_id, role_id"
+                constraintName="pk_user_roles"/>
+    </changeSet>
+
+    <changeSet id="005-insert-default-roles" author="Timur Aslitdinov">
+        <!-- Заполняем таблицу ролей стандартными значениями -->
+        <insert tableName="roles">
+            <column name="name" value="ROLE_MASTER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_GRAND_EMPLOYEE"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_CURRENT_CLIENT"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_BLOCKED_CLIENT"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="005-add-default-role-to-existing-users" author="common">
+        <!-- Назначаем всем существующим пользователям роль CURRENT_CLIENT по умолчанию -->
+        <sql>
+            INSERT INTO user_roles (user_id, role_id)
+            SELECT u.id, r.id
+            FROM users u, roles r
+            WHERE r.name = 'ROLE_CURRENT_CLIENT'
+              AND NOT EXISTS (
+                SELECT 1 FROM user_roles ur WHERE ur.user_id = u.id
+            )
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

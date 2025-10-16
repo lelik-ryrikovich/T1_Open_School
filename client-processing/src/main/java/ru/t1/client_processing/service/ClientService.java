@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t1.client_processing.repository.RoleRepository;
 import ru.t1.starter.aop.annotation.LogDatasourceError;
 import ru.t1.client_processing.dto.ClientRegistrationRequest;
 import ru.t1.client_processing.dto.ClientRegistrationResponse;
@@ -16,6 +17,8 @@ import ru.t1.client_processing.repository.ClientRepository;
 import ru.t1.client_processing.repository.UserRepository;
 import ru.t1.client_processing.util.ClientIdGenerator;
 import ru.t1.dto.ClientInfoResponse;
+import ru.t1.client_processing.entity.Role;
+import ru.t1.client_processing.entity.enums.RoleEnum;
 
 /**
  * Сервис для управления клиентами.
@@ -30,6 +33,7 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final BlacklistService blacklistService;
     private final ClientIdGenerator clientIdGenerator;
+    private final RoleRepository roleRepository;
 
     /**
      * Регистрация нового клиента.
@@ -71,6 +75,12 @@ public class ClientService {
         user.setLogin(request.getLogin());
         user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
+
+        // Назначаем роль ROLE_CURRENT_CLIENT
+        Role clientRole = roleRepository.findByName(RoleEnum.ROLE_CURRENT_CLIENT)
+                .orElseThrow(() -> new RuntimeException("Role ROLE_CURRENT_CLIENT not found in database"));
+        user.getRoles().add(clientRole);
+
         return user;
     }
 

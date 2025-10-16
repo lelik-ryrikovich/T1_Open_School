@@ -18,4 +18,6 @@ public interface BlacklistRegistryRepository extends JpaRepository<BlacklistRegi
             @Param("documentType") DocumentType documentType,
             @Param("documentId") String documentId,
             @Param("currentTime") LocalDateTime currentTime);
+
+    void deleteByDocumentTypeAndDocumentId(DocumentType documentType, String documentId);
 }
