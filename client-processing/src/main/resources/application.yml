@@ -49,5 +49,24 @@ jwt:
   secret: "bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbkluTWljcm9zZXJ2aWNlczEyMyE="
   expiration-ms: 3600000
 
+# Prometheus метрики
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  metrics:
+    tags:
+      application: client-processing-service
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
 server:
   port: 8081

@@ -42,6 +42,7 @@ public class ClientProductService {
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
     private final KafkaProducerService kafkaProducerService;
+    private final ProductMetricsService productMetricsService;
 
     @Value("${app.kafka.topics.client-products}")
     private String clientProductsTopic;
@@ -96,6 +97,8 @@ public class ClientProductService {
 
         ClientProduct savedClientProduct = clientProductRepository.save(clientProduct);
         log.info("Product added to client successfully. ClientProduct ID: {}", savedClientProduct.getId());
+
+        productMetricsService.updateProductMetrics();
 
         // Отправляем сообщение в Kafka
         sendKafkaMessage("CREATE", savedClientProduct);
@@ -163,6 +166,8 @@ public class ClientProductService {
         ClientProduct updatedClientProduct = clientProductRepository.save(clientProduct);
         log.info("Client product updated successfully. ID: {}", clientProductId);
 
+        productMetricsService.updateProductMetrics();
+
         // Отправляем сообщение в Kafka
         sendKafkaMessage("UPDATE", updatedClientProduct);
 
@@ -188,6 +193,8 @@ public class ClientProductService {
 
         clientProductRepository.delete(clientProduct);
         log.info("Client product removed successfully. ID: {}", clientProductId);
+
+        productMetricsService.updateProductMetrics();
 
         // Отправляем сообщение в Kafka
         sendKafkaMessageForDelete(response);

@@ -1,6 +1,7 @@
 package ru.t1.starter.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -19,7 +20,7 @@ public class HttpIncomeRequestLoggingAutoConfiguration {
     @ConditionalOnMissingBean
     public HttpIncomeRequestLogAspect httpIncomeRequestLogAspect(
             KafkaTemplate<String, Object> kafkaTemplate,
-            RequestMappingHandlerMapping handlerMapping
+            @Qualifier("requestMappingHandlerMapping") RequestMappingHandlerMapping handlerMapping
     ) {
         return new HttpIncomeRequestLogAspect(kafkaTemplate, handlerMapping);
     }
